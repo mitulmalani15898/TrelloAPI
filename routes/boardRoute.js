@@ -1,44 +1,52 @@
 const router = require('express').Router();
 
-const { Board, User } = require('../sequelize/sequelize');
+const { Board, List, Card } = require('../sequelize/sequelize');
 
 // get all boards
 router.get('/', (req, res) => {
-  Board.findAll()
+  Board.findAll({
+    include: [{
+      model: List,
+      include: [{
+        model: Card
+      }]
+    }]
+  })
     .then(response => res.json(response).status(200))
     .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))
 })
 
 // get board by id
 router.get('/:boardId', (req, res) => {
-  Board.findByPk(req.params.boardId)
-    .then(response => res.json(response).status(200))
-    .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))
-})
-
-// get boards by userId
-router.get('/user/:userId', (req, res) => {
-  Board.findAll({
-    where: { userId: req.params.userId },
+  Board.findByPk(req.params.boardId, {
     include: [{
-      model: Board
+      model: List,
+      include: [{
+        model: Card
+      }]
     }]
   })
     .then(response => res.json(response).status(200))
     .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))
 })
 
-// get boards by teamId
-router.get('/team/:teamId', (req, res) => {
-  Board.findAll({
-    where: { teamId: req.params.teamId },
-    include: [{
-      model: Board
-    }]
-  })
-    .then(response => res.json(response).status(200))
-    .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))
-})
+// // get boards by userId
+// router.get('/user/:userId', (req, res) => {
+//   Board.findAll({
+//     where: { userId: req.params.userId }
+//   })
+//     .then(response => res.json(response).status(200))
+//     .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))
+// })
+
+// // get boards by teamId
+// router.get('/team/:teamId', (req, res) => {
+//   Board.findAll({
+//     where: { teamId: req.params.teamId }
+//   })
+//     .then(response => res.json(response).status(200))
+//     .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))
+// })
 
 // post board
 router.post('/', (req, res) => {

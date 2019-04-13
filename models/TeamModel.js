@@ -32,6 +32,6 @@ module.exports = (sequelize, type) => {
 
     Team.sync({ force: false })
     .then((res) => console.log("Team Table Created Succesfully...", res))
-    .catch(err => console.log("Erro while creating team table ", err))
+    .catch(err => console.log("Error while creating team table ", err))
   return Team;
 }

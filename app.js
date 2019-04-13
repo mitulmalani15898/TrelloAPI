@@ -11,11 +11,16 @@ const authRoute = require('./routes/authRoute');
 const boardRoute = require('./routes/boardRoute');
 const teamRoute = require('./routes/teamRoute');
 const userRoute = require('./routes/userRoute');
+const listRoute = require('./routes/listRoute');
+const cardRoute = require('./routes/cardRoute');
 
 let app = express();
+
 app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -23,6 +28,8 @@ app.use('/auth', authRoute);
 app.use('/api/board', boardRoute);
 app.use('/api/team', teamRoute);
 app.use('/api/user', userRoute)
+app.use('/api/list', listRoute);
+app.use('/api/card', cardRoute);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({

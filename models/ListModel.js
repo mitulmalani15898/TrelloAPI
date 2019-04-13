@@ -1,20 +1,12 @@
 module.exports = (sequelize, type) => {
-  let User = sequelize.define("User", {
+  let List = sequelize.define("List", {
     id: {
       type: type.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    name: type.STRING,
-    email: {
-      type: type.STRING,
-      unique: true
-    },
-    password: type.STRING,
-    isActive: {
-      type: type.BOOLEAN,
-      defaultValue: true
-    },
+    boardId: type.INTEGER,
+    listName: type.STRING,
     createdBy: {
       type: type.INTEGER,
       defaultValue: 0
@@ -34,11 +26,11 @@ module.exports = (sequelize, type) => {
   }, {
       timestamps: false,
       freezeTableName: true,
-      tableName: 'user'
+      tableName: 'list'
     })
 
-  User.sync({ force: false })
-    .then((res) => console.log("User Table Created Succesfully...", res))
-    .catch(err => console.log("Error while creating user table ", err))
-  return User;
+  List.sync({ force: false })
+    .then((res) => console.log("List Table Created Succesfully...", res))
+    .catch(err => console.log("Error while creating list table ", err))
+  return List;
 }

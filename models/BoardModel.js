@@ -8,7 +8,7 @@ module.exports = (sequelize, type) => {
     userId: type.INTEGER,
     teamId: {
       type: type.INTEGER,
-      defaultValue: 1
+      defaultValue: 0
     },
     boardName: type.STRING,
     scope: {
@@ -39,6 +39,6 @@ module.exports = (sequelize, type) => {
 
   Board.sync({ force: false })
     .then((res) => console.log("Board Table Created Succesfully...", res))
-    .catch(err => console.log("Erro while creating board table ", err))
+    .catch(err => console.log("Error while creating board table ", err))
   return Board;
 }
