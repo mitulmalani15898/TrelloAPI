@@ -15,10 +15,12 @@ router.get('/', (req, res) => {
 
 // get particular user with its boards
 router.get('/:userId', (req, res) => {
-  User.findByPk(req.params.userId,{
+  User.findByPk(req.params.userId, {
     include: [{
-      model: Board
-    }]
+      model: Board,
+      where: { teamId: 1 }
+    }],
+
   })
     .then(response => res.json(response).status(200))
     .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))

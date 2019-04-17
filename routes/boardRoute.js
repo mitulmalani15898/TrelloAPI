@@ -64,10 +64,10 @@ router.post('/', (req, res) => {
     })
 })
 
-// update board
-router.put('/:id', (req, res) => {
+// update board 
+router.patch('/:boardId', (req, res) => {
   Board.update(req.body, {
-    where: { id: req.params.id }
+    where: { id: req.params.boardId }
   }).then(response => {
     res.json(response).status(200);
   }).catch(err => {
