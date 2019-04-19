@@ -34,4 +34,15 @@ router.post('/', (req, res) => {
     .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))
 })
 
+// update list 
+router.patch('/:listId', (req, res) => {
+  List.update(req.body, {
+    where: { id: req.params.listId }
+  }).then(response => {
+    res.json(response).status(200);
+  }).catch(err => {
+    res.json({ 'error': JSON.stringify(err) }).status(400);
+  })
+})
+
 module.exports = router;

@@ -26,4 +26,15 @@ router.post('/', (req, res) => {
     .catch(err => res.json({ 'error': JSON.stringify(err) }).status(400))
 })
 
+// update card 
+router.patch('/:cardId', (req, res) => {
+  Card.update(req.body, {
+    where: { id: req.params.cardId }
+  }).then(response => {
+    res.json(response).status(200);
+  }).catch(err => {
+    res.json({ 'error': JSON.stringify(err) }).status(400);
+  })
+})
+
 module.exports = router;
