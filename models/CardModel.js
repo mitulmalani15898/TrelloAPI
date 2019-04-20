@@ -7,6 +7,10 @@ module.exports = (sequelize, type) => {
     },
     listId: type.INTEGER,
     cardName: type.STRING,
+    description: {
+      type: type.STRING,
+      defaultValue: null
+    },
     createdBy: {
       type: type.INTEGER,
       defaultValue: 0
