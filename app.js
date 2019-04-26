@@ -13,6 +13,9 @@ const teamRoute = require('./routes/teamRoute');
 const userRoute = require('./routes/userRoute');
 const listRoute = require('./routes/listRoute');
 const cardRoute = require('./routes/cardRoute');
+const commentRoute = require('./routes/CommentRoute');
+const checkListRoute = require('./routes/checkListRoute');
+const checkListItemRoute = require('./routes/checkListItemRoute');
 
 let app = express();
 
@@ -30,6 +33,9 @@ app.use('/api/team', teamRoute);
 app.use('/api/user', userRoute)
 app.use('/api/list', listRoute);
 app.use('/api/card', cardRoute);
+app.use('/api/comment', commentRoute);
+app.use('/api/checkList', checkListRoute);
+app.use('/api/checkListItem', checkListItemRoute);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({

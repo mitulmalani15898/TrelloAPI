@@ -1,12 +1,20 @@
 const router = require('express').Router();
 
-const { List, Card } = require('../sequelize/sequelize');
+const { List, Card, Comment, CheckList, CheckListItem } = require('../sequelize/sequelize');
 
 // get all list
 router.get('/', (req, res) => {
   List.findAll({
     include: [{
-      model: Card
+      model: Card,
+      include: [{
+        model: Comment
+      }, {
+        model: CheckList,
+        include: [{
+          model: CheckListItem
+        }]
+      }]
     }]
   })
     .then(list => res.json(list).status(200))
@@ -17,7 +25,15 @@ router.get('/', (req, res) => {
 router.get('/:listId', (req, res) => {
   List.findByPk(req.params.listId, {
     include: [{
-      model: Card
+      model: Card,
+      include: [{
+        model: Comment
+      }, {
+        model: CheckList,
+        include: [{
+          model: CheckListItem
+        }]
+      }]
     }]
   })
     .then(response => res.json(response).status(200))

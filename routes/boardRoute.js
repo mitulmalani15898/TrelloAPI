@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { Board, List, Card } = require('../sequelize/sequelize');
+const { Board, List, Card, Comment, CheckList, CheckListItem } = require('../sequelize/sequelize');
 
 // get all boards
 router.get('/', (req, res) => {
@@ -8,7 +8,15 @@ router.get('/', (req, res) => {
     include: [{
       model: List,
       include: [{
-        model: Card
+        model: Card,
+        include: [{
+          model: Comment
+        }, {
+          model: CheckList,
+          include: [{
+            model: CheckListItem
+          }]
+        }]
       }]
     }]
   })
@@ -22,7 +30,15 @@ router.get('/:boardId', (req, res) => {
     include: [{
       model: List,
       include: [{
-        model: Card
+        model: Card,
+        include: [{
+          model: Comment
+        }, {
+          model: CheckList,
+          include: [{
+            model: CheckListItem
+          }]
+        }]
       }]
     }]
   })
