@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 exports.generateErrorJSON = (message, details) => {
   return { error: message, details }
